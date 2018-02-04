@@ -1,0 +1,165 @@
+<html>
+  <head>
+    <title>ROI Calculator</title>
+  </head>
+  <body>
+    <h1>Calculation Results</h1>
+    <form action="/calc" method="post">
+    <table border="0px">
+      <tr>
+        <td>Monthly Payment (Mortgage Principal + Interest)</td> <td> ${{ monthly_payment }} </td>
+      </tr>
+      <tr>
+        <td>Monthly Property Tax</td> <td> ${{ monthly_property_tax }} </td>
+      </tr>
+      <tr>
+        <td>Monthly Insurance</td> <td> ${{ monthly_insurance }} </td>
+      </tr>
+      <tr>
+        <td>Monthly PITI + HOA</td> <td> ${{ monthly_cost }} </td>
+      </tr>
+
+      <tr>
+        <td>Purchase price</td>
+        <td><input type="text" name="price" value="{{request.form["price"]}}"/></td>
+      </tr>
+      <tr>
+        <td>Down payment percentage</td>
+        <td><input type="text" name="down" value="{{request.form["down"]}}"/>%</td>
+      </tr>
+      <tr>
+        <td>Interest Rate</td>
+        <td><input type="text" name="interest" value="{{request.form["interest"]}}"/>%</td>
+      </tr>
+      <tr>
+        <td>Number of terms (years)</td>
+        <td><input type="text" name="years" value="{{request.form["years"]}}"/></td>
+      </tr>
+      <tr>
+        <td>HOA due</td>
+        <td><input type="text" name="hoa" value="{{request.form["hoa"]}}"/>$</td>
+      </tr>
+      <tr>
+        <td>HOA Annual Increase</td>
+        <td><input type="text" name="hoainc" value="{{request.form["hoainc"]}}"/>%</td>
+      </tr>
+      <tr>
+        <td>Closing Cost (less agent rebate)</td>
+        <td><input type="text" name="closing" value="{{request.form["closing"]}}"/>$</td>
+      </tr>
+      <tr>
+        <td>Structure Value (price less land value)</td>
+        <td><input type="text" name="structurevalue" value="{{request.form["structurevalue"]}}"/>$</td>
+      </tr>
+      <tr>
+        <td>Annual Insurance</td>
+        <td><input type="text" name="insurance" value="{{request.form["insurance"]}}"/>$</td>
+      </tr>
+      <tr>
+        <td>Insurance Annual Increase</td>
+        <td><input type="text" name="insurance_increase" value="{{request.form["insurance_increase"]}}"/>%</td>
+      </tr>          
+      <tr>
+        <td>Property Tax Rate</td>
+        <td><input type="text" name="propertytax" value="{{request.form["propertytax"]}}"/>%</td>
+      </tr>
+      <tr>
+        <td>Appreciation Rate (Annual)</td>
+        <td><input type="text" name="apprec" value="{{request.form["apprec"]}}"/>%</td>
+      </tr>
+      <tr>
+        <td>Personal Income Tax Rate (Highest Marginal Rate)</td>
+        <td><input type="text" name="income_tax" value="{{request.form["income_tax"]}}"/>%</td>
+      </tr>
+      <tr>
+        <td>Personal Capital Gain Tax Rate (Highest Margin)</td>
+        <td><input type="text" name="capital_tax" value="{{request.form["capital_tax"]}}"/>%</td>
+      </tr>
+      <tr>
+        <td>Sales Cost (% of the value)</td>
+        <td><input type="text" name="sale_cost" value="{{request.form["sale_cost"]}}"/>%</td>
+      </tr>
+      <tr>
+        <td>Annual upkeeping cost (%)</td>
+        <td><input type="text" name="upkeeping" value="{{request.form["upkeeping"]}}"/>%</td>
+      </tr>
+      <tr>
+        <td>Initial monthly rental</td>
+        <td><input type="text" name="monthly_rental" value="{{request.form["monthly_rental"]}}"/>$</td>
+      </tr>
+      <tr>
+        <td>Annual rental increase</td>
+        <td><input type="text" name="annual_rental_increase" value="{{request.form["annual_rental_increase"]}}"/>%</td>
+      </tr>
+      <tr>
+        <td>Vacancy Rate</td>
+        <td><input type="text" name="vacancy_rate" value="{{request.form["vacancy_rate"]}}"/>%</td>
+      </tr>
+      <tr>
+        <td>Annual property tax increase cap (Type 2 for CA Prop 13)</td>
+        <td><input type="text" name="property_tax_cap" value="{{request.form["property_tax_cap"]}}"/>%</td>
+      </tr>
+      <tr>
+        <td colspan="2"> <input type="submit" name="submit"/></td>
+      </tr>
+    </table>
+    </form>
+
+    <h2>Amortize Table</h2>
+    <table border="1px">
+      <tr>
+        <td>Month</td>
+        <td>Interest Paid</td>
+        <td>Pricipal Paid</td>
+        <td>Pricipal Remain</td>
+        <td>HOA</td>
+        <td>Insurance</td>
+        <td>Property Tax</td>
+        <td>Upkeeping</td>
+        <td>Depreciation</td>
+        <td>Rental income</td>
+        <td>Net Cost</td>
+        <td>Tax Saving</td>
+        <td>Cashflow</td>
+        <td>After tax Cashflow</td>
+        <td>Total net Cashflow</td>
+        <td>Property Value</td>
+        <td>Cost if sold</td>
+        <td>Capital Gain</td>
+        <td>Tax if sold</td>
+        <td>Net proceeding</td>
+        <td>Total net gain</td>
+        <td>ROI</td>
+        <td>Annualized ROI</td>
+      </tr>
+      {% for m in tb %}
+      <tr>
+        <td>{{ "%d" % m.month }}</td>
+        <td align="right">{{"$%.2f" % m.interest_paid}}</td>
+        <td align="right">{{"$%.2f" % m.principal_paid}}</td>
+        <td align="right">{{"$%.2f" % m.principal_remain}}</td>
+        <td align="right">{{"$%.2f" % m.hoa}}</td>
+        <td align="right">{{"$%.2f" % m.insurance}}</td>
+
+        <td align="right">{{"$%.2f" % m.property_tax}}</td>
+        <td align="right">{{"$%.2f" % m.upkeeping_paid}}</td>
+        <td align="right">{{"$%.2f" % m.depreciation}}</td>
+        <td align="right">{{"$%.2f" % m.rental_income}}</td>
+        <td align="right">{{"$%.2f" % m.net_cost}}</td>
+        <td align="right">{{"$%.2f" % m.tax_saving}}</td>
+        <td align="right">{{"$%.2f" % m.cash_flow}}</td>
+        <td align="right">{{"$%.2f" % m.after_tax_cash_flow}}</td>
+        <td align="right">{{"$%.2f" % m.total_net_cash_flow}}</td>
+        <td align="right">{{"$%.2f" % m.property_value}}</td>
+        <td align="right">{{"$%.2f" % m.cost_if_sold}}</td>
+        <td align="right">{{"$%.2f" % m.capital_gain_if_sold}}</td>
+        <td align="right">{{"$%.2f" % m.tax_if_sold}}</td>
+        <td align="right">{{"$%.2f" % m.net_proceeding_after_tax}}</td>
+        <td align="right">{{"$%.2f" % m.total_net_gain_loss}}</td>
+        <td align="right">{{"%.2f%%" % m.roi}}</td>
+        <td align="right">{{"%.2f%%" % m.annualized_roi}}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </body>
+</html>

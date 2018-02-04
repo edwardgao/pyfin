@@ -1,0 +1,96 @@
+<html>
+  <head>
+    <title>ROI Calculator</title>
+  </head>
+  <body>
+    <form action="/calc" method="post">
+      <h1>ROI Calculator</h1>
+      <table border="1px">
+        <tr>
+          <td>Purchase price</td>
+          <td><input type="text" name="price" value="100000"/></td>
+        </tr>
+        <tr>
+          <td>Down payment percentage</td>
+          <td><input type="text" name="down" value="20"/>%</td>
+        </tr>
+        <tr>
+          <td>Interest Rate</td>
+          <td><input type="text" name="interest" value="5"/>%</td>
+        </tr>
+        <tr>
+          <td>Number of terms (years)</td>
+          <td><input type="text" name="years" value="30"/></td>
+        </tr>
+        <tr>
+          <td>HOA due</td>
+          <td><input type="text" name="hoa" value="200"/>$</td>
+        </tr>
+        <tr>
+          <td>HOA Annual Increase</td>
+          <td><input type="text" name="hoainc" value="2"/>%</td>
+        </tr>
+        <tr>
+          <td>Closing Cost (less agent rebate)</td>
+          <td><input type="text" name="closing" value="3000"/>$</td>
+        </tr>
+        <tr>
+          <td>Structure Value (price less land value)</td>
+          <td><input type="text" name="structurevalue" value="50000"/>$</td>
+        </tr>
+        <tr>
+          <td>Annual Insurance</td>
+          <td><input type="text" name="insurance" value="600"/>$</td>
+        </tr>
+        <tr>
+          <td>Insurance Annual Increase</td>
+          <td><input type="text" name="insurance_increase" value="2"/>%</td>
+        </tr>        
+        <tr>
+          <td>Property Tax Rate</td>
+          <td><input type="text" name="propertytax" value="1.25"/>%</td>
+        </tr>
+        <tr>
+          <td>Appreciation Rate (Annual)</td>
+          <td><input type="text" name="apprec" value="3"/>%</td>
+        </tr>
+        <tr>
+          <td>Personal Income Tax Rate (Highest Marginal Rate)</td>
+          <td><input type="text" name="income_tax" value="33"/>%</td>
+        </tr>
+        <tr>
+          <td>Personal Capital Gain Tax Rate (Highest Margin)</td>
+          <td><input type="text" name="capital_tax" value="25"/>%</td>
+        </tr>
+        <tr>
+          <td>Sales Cost (% of the value)</td>
+          <td><input type
+          ="text" name="sale_cost" value="6"/>%</td>
+        </tr>
+        <tr>
+          <td>Annual upkeeping cost (% of property value)</td>
+          <td><input type="text" name="upkeeping" value="1"/>%</td>
+        </tr>
+        <tr>
+          <td>Initial monthly rental</td>
+          <td><input type="text" name="monthly_rental" value="1000"/>$</td>
+        </tr>
+        <tr>
+          <td>Annual rental increase</td>
+          <td><input type="text" name="annual_rental_increase" value="2"/>%</td>
+        </tr>
+        <tr>
+          <td>Vacancy Rate</td>
+          <td><input type="text" name="vacancy_rate" value="5"/>%</td>
+        </tr>
+        <tr>
+          <td>Annual property tax increase cap (Type 2 for CA Prop 13)</td>
+          <td><input type="text" name="property_tax_cap" value="0"/>%</td>
+        </tr>
+        <tr>
+          <td colspan="2"> <input type="submit" name="submit"/></td>
+        </tr>
+      </table>
+    </form>  
+  </body>
+</html>
